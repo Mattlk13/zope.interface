@@ -12,7 +12,6 @@ Change log
   free-threading safety when accessing the type dict.
   See `issue 357 <https://github.com/zopefoundation/zope.interface/issues/357>`_.
 
-
 8.4 (2026-04-25)
 ----------------
 

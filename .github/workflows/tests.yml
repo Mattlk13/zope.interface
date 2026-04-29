@@ -157,12 +157,12 @@ jobs:
         if: matrix.python-version == '3.15'
         run: |
           pip install -U pip
-          pip install -U "setuptools >= 78.1.1,< 81" wheel twine
+          pip install -U "setuptools >= 78.1.1,< 82" wheel twine
       - name: Install Build Dependencies
         if: matrix.python-version != '3.15'
         run: |
           pip install -U pip
-          pip install -U "setuptools >= 78.1.1,< 81" wheel twine
+          pip install -U "setuptools >= 78.1.1,< 82" wheel twine
 
       - name: Build zope.interface (macOS x86_64)
         if: >
@@ -218,7 +218,7 @@ jobs:
         if: matrix.python-version != '3.15'
         run: |
           # Install to collect dependencies into the (pip) cache.
-          pip install -U pip "setuptools >= 78.1.1,< 81"
+          pip install -U pip "setuptools >= 78.1.1,< 82"
           pip install .[test]
 
       - name: Check zope.interface build

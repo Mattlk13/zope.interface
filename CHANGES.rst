@@ -1,7 +1,25 @@
 Change log
 ==========
 
-8.3 (unreleased)
+8.5 (unreleased)
+----------------
+
+- Replace all remaining ``PyDict_GetItem()`` calls in the C extension with
+  exception-safe alternatives (``PyDict_Contains``, ``PyDict_GetItemWithError``).
+  ``PyDict_GetItem`` silently swallows exceptions from ``__hash__``/``__eq__``,
+  causing ``isOrExtends()`` to return ``False`` instead of raising ``TypeError``
+  for unhashable objects. Also use ``PyType_GetDict()`` on Python 3.13+ for
+  free-threading safety when accessing the type dict.
+  See `issue 357 <https://github.com/zopefoundation/zope.interface/issues/357>`_.
+
+
+8.4 (2026-04-25)
+----------------
+
+- Add support for automatically building and publishing Windows/ARM64 wheels.
+
+
+8.3 (2026-04-10)
 ----------------
 
 - Add support for free-threaded Python 3.14t: declare ``Py_mod_gil_not_used``
@@ -11,13 +29,12 @@ Change log
 
 - Add CI testing for free-threaded Python 3.14t (Linux).
 
-- Replace all remaining ``PyDict_GetItem()`` calls in the C extension with
-  exception-safe alternatives (``PyDict_Contains``, ``PyDict_GetItemWithError``).
-  ``PyDict_GetItem`` silently swallows exceptions from ``__hash__``/``__eq__``,
-  causing ``isOrExtends()`` to return ``False`` instead of raising ``TypeError``
-  for unhashable objects. Also use ``PyType_GetDict()`` on Python 3.13+ for
-  free-threading safety when accessing the type dict.
-  See `issue 357 <https://github.com/zopefoundation/zope.interface/issues/357>`_.
+- Guard 4 unprotected ``PyErr_Clear()`` calls in the C extension with
+  ``PyErr_ExceptionMatches`` checks, matching the pattern already used at 7
+  other sites in the same file. Without the guard, ``KeyboardInterrupt``,
+  ``MemoryError``, and ``SystemExit`` are silently swallowed in
+  ``implementedBy`` and ``providedBy``.
+  See `issue 358 <https://github.com/zopefoundation/zope.interface/issues/358>`_.
 
 
 8.2 (2026-01-09)

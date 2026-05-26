@@ -1,7 +1,7 @@
 Change log
 ==========
 
-8.5 (unreleased)
+8.5 (2026-05-26)
 ----------------
 
 - Build and upload free-threaded (``cp314t``, ``cp315t``) wheels for all
